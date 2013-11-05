@@ -20,9 +20,21 @@ class HomeController extends BaseController {
 		// return View::make('hello');
 		echo 'hello, this is a demo for FirstPage';
 	}
+
 	public function getHome()
 	{
-		$result = HomeModule::getIndex();
+		// $result = new HomeModule;
+		// $result =$result->getData();
+		$result = HomeModule::getData();
+		echo $result;
+	}
+	public function getHello()
+	{
+		echo 'hahahahah';
+	}
+	public function getTest()
+	{
+		$result = HomeModule::getTest();
 		echo $result;
 	}
 
