@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 
-class CreateThemesTable extends Migration {
+class CreateRolesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +11,10 @@ class CreateThemesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('categorys',function(Blueprint $table){
+		Schem::create('roles',function(Blueprint $table){
 			$table->increments('id');
-			$table->string('name');
+			$table->integer('level');
+			$table->integer('user_id');
 		});
 	}
 
@@ -25,7 +25,7 @@ class CreateThemesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('categorys');
+		Schema::drop('roles');
 	}
 
 }

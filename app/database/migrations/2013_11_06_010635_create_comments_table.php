@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateThemesTable extends Migration {
+class CreateCommentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,13 @@ class CreateThemesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('categorys',function(Blueprint $table){
+		Schema::create('comments',function(Blueprint $table){
 			$table->increments('id');
-			$table->string('name');
+			$table->integer('article_id');
+			$table->integer('category_id');
+			$table->integer('visitor_id');
+			$table->text('comments');
+			$table->string('commented_at');	
 		});
 	}
 
@@ -25,7 +29,7 @@ class CreateThemesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('categorys');
+		Schema::drop('comments');
 	}
 
 }

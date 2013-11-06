@@ -18,3 +18,4 @@
 Route::get('/','HomeController@showWelcome');
 
 Route::controller('home','HomeController');
+Route::controller('admin','AdminController');

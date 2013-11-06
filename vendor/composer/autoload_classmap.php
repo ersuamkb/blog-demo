@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AdminController' => $baseDir . '/app/controllers/AdminController.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/Carbon/Carbon.php',
     'Carbon\\Tests\\TestFixture' => $vendorDir . '/nesbot/carbon/Carbon/Tests/TestFixture.php',
@@ -20,7 +21,11 @@ return array(
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
     'CreateArticlesTable' => $baseDir . '/app/database/migrations/2013_11_05_095336_create_articles_table.php',
+    'CreateCategerysTable' => $baseDir . '/app/database/migrations/2013_11_06_012650_create_categerys_table.php',
+    'CreateCommentsTable' => $baseDir . '/app/database/migrations/2013_11_06_010635_create_comments_table.php',
+    'CreateRolesTable' => $baseDir . '/app/database/migrations/2013_11_06_034128_create_roles_table.php',
     'CreateThemesTable' => $baseDir . '/app/database/migrations/2013_11_05_100714_create_themes_table.php',
+    'CreateUsersTable' => $baseDir . '/app/database/migrations/2013_11_06_034804_create_users_table.php',
     'CreateVisitorsTable' => $baseDir . '/app/database/migrations/2013_11_05_092736_create_visitors_table.php',
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'Doctrine\\Common\\Annotations\\Annotation' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation.php',

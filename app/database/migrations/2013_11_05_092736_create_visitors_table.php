@@ -14,10 +14,8 @@ class CreateVisitorsTable extends Migration {
 	{
 		Schema::create('visitors',function(Blueprint $table){
 			$table->increments('id');
-			$table->integer('theme_id');
-			$table->string('email');
-			$table->text('comments');
-			$table->string('commented_at');
+			$table->string('email')->uniqid();			
+			$table->integer('times');			
 		});
 	}
 

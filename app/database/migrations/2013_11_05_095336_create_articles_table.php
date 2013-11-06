@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
 			$table->string('author');
-			$table->integer('category_id');
+			$table->integer('categorys_id');
 			$table->text('content');
 			$table->string('created_at');
 		});
@@ -29,7 +29,7 @@ class CreateArticlesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('articles');
+		Schema::drop('categorys');
 	}
 
 }
