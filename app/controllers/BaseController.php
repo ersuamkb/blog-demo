@@ -7,6 +7,8 @@ class BaseController extends Controller {
 	 *
 	 * @return void
 	 */
+
+
 	protected function setupLayout()
 	{
 		if ( ! is_null($this->layout))
@@ -35,10 +37,12 @@ class BaseController extends Controller {
 	{
 		return Input::get($param);
 	}
-	protected function outputParamErrorIfExist()
-	{
-		
-	}
+	
+	protected function display($view,$data)
+    {
+       
+    	echo (View::make($view,$data));
+    }
 
 
 }
