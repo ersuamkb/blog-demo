@@ -5,9 +5,9 @@ class HomeController extends BaseController {
 	
 	public function showWelcome()
 	{
-		$articles = Article::limit(5)->orderBy('created_at','DESC')->get();
+		$this->data["articles"]= Article::limit(5)->orderBy('created_at','DESC')->get();
 
-		$this->display('home',$articles[0]);
+		return View::make('home',$this->data);
 	}
 
 }

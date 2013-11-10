@@ -8,7 +8,7 @@ class BaseController extends Controller {
 	 * @return void
 	 */
 
-
+    protected $date =array();
 	protected function setupLayout()
 	{
 		if ( ! is_null($this->layout))
@@ -41,7 +41,7 @@ class BaseController extends Controller {
 	protected function display($view,$data)
     {
        
-    	echo (View::make($view,$data));
+         return View::make($view,$data);
     }
 
 
