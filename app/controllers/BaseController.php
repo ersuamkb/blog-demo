@@ -9,6 +9,7 @@ class BaseController extends Controller {
 	 */
 
     protected $date =array();
+
 	protected function setupLayout()
 	{
 		if ( ! is_null($this->layout))
