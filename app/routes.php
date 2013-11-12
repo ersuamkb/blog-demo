@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/','HomeController@showWelcome');
+Route::get('/{status?}','HomeController@showWelcome');
 
 Route::controller('home','HomeController');
 Route::controller('admin','AdminController');

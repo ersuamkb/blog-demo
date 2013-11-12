@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration {
 			$table->string('title');
 			$table->string('author');
 			$table->integer('categorys_id');
+			$table->integer('times');
 			$table->text('content');
 			$table->string('created_at');
 		});
