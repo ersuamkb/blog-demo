@@ -88,6 +88,8 @@ class Crawler extends \SplObjectStorage
      *
      * @param string      $content A string to parse as HTML/XML
      * @param null|string $type    The content type of the string
+     *
+     * @return null|void
      */
     public function addContent($content, $type = null)
     {
@@ -96,28 +98,19 @@ class Crawler extends \SplObjectStorage
         }
 
         // DOM only for HTML/XML content
-        if (!preg_match('/(x|ht)ml/i', $type, $xmlMatches)) {
+        if (!preg_match('/(x|ht)ml/i', $type, $matches)) {
             return null;
         }
 
-        $charset = null;
-        if (false !== $pos = stripos($type, 'charset=')) {
+        $charset = 'ISO-8859-1';
+        if (false !== $pos = strpos($type, 'charset=')) {
             $charset = substr($type, $pos + 8);
             if (false !== $pos = strpos($charset, ';')) {
                 $charset = substr($charset, 0, $pos);
             }
         }
 
-        if (null === $charset &&
-            preg_match('/\<meta[^\>]+charset *= *["\']?([a-zA-Z\-0-9]+)/i', $content, $matches)) {
-            $charset = $matches[1];
-        }
-
-        if (null === $charset) {
-            $charset = 'ISO-8859-1';
-        }
-
-        if ('x' === $xmlMatches[1]) {
+        if ('x' === $matches[1]) {
             $this->addXmlContent($content, $charset);
         } else {
             $this->addHtmlContent($content, $charset);
@@ -756,11 +749,6 @@ class Crawler extends \SplObjectStorage
         return sprintf("concat(%s)", implode($parts, ', '));
     }
 
-    /**
-     * @param integer $position
-     *
-     * @return \DOMElement|null
-     */
     protected function getNode($position)
     {
         foreach ($this as $i => $node) {
@@ -774,12 +762,6 @@ class Crawler extends \SplObjectStorage
         // @codeCoverageIgnoreEnd
     }
 
-    /**
-     * @param \DOMElement $node
-     * @param string      $siblingDir
-     *
-     * @return array
-     */
     protected function sibling($node, $siblingDir = 'nextSibling')
     {
         $nodes = array();

@@ -94,13 +94,8 @@ header {
       background: #BEE9EA;
     }
 
-    .frame-class, .frame-function, .frame-index {
+    .frame-class, .frame-function {
       font-weight: bold;
-    }
-
-    .frame-index {
-      font-size: 11px;
-      color: #BDBDBD;
     }
 
     .frame-class {
@@ -123,6 +118,7 @@ header {
       font-weight: bold;
       color: #4288CE;
     }
+
 
     .active .frame-line { color: #BEE9EA; }
     .frame-line:before {
@@ -305,15 +301,11 @@ pre.prettyprint, code.prettyprint {
     text-decoration:none;
   }
 
-  .linenums li {
-    color: #A5A5A5;
-  }
-
   .linenums li.current{
-    background: rgba(255, 100, 100, .07);
+    background: rgba(255, 255, 255, .07);
     padding-top: 4px;
     padding-left: 1px;
   }
     .linenums li.current.active {
-      background: rgba(255, 100, 100, .17);
+      background: rgba(255, 255, 255, .17);
     }

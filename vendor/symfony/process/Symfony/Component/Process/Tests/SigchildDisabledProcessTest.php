@@ -24,22 +24,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
      */
-    public function testGetExitCodeIsNullOnStart()
-    {
-        parent::testGetExitCodeIsNullOnStart();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     */
-    public function testGetExitCodeIsNullOnWhenStartingAgain()
-    {
-        parent::testGetExitCodeIsNullOnWhenStartingAgain();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     */
     public function testExitCodeCommandFailed()
     {
         parent::testExitCodeCommandFailed();
@@ -75,14 +59,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     public function testProcessWithoutTermSignal()
     {
         parent::testProcessWithoutTermSignal();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     */
-    public function testCheckTimeoutOnStartedProcess()
-    {
-        parent::testCheckTimeoutOnStartedProcess();
     }
 
     /**
@@ -131,14 +107,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     /**
      * @expectedException \Symfony\Component\Process\Exception\RuntimeException
      */
-    public function testIsSuccessfulOnlyAfterTerminated()
-    {
-        parent::testIsSuccessfulOnlyAfterTerminated();
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Process\Exception\RuntimeException
-     */
     public function testIsNotSuccessful()
     {
         parent::testIsNotSuccessful();
@@ -168,11 +136,6 @@ class SigchildDisabledProcessTest extends AbstractProcessTest
     public function testProcessThrowsExceptionWhenExternallySignaled()
     {
         $this->markTestSkipped('Retrieving Pid is not supported in sigchild environment');
-    }
-
-    public function testExitCodeIsAvailableAfterSignal()
-    {
-        $this->markTestSkipped('Signal is not supported in sigchild environment');
     }
 
     /**

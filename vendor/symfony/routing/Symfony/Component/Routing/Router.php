@@ -232,7 +232,7 @@ class Router implements RouterInterface
 
         $class = $this->options['matcher_cache_class'];
         $cache = new ConfigCache($this->options['cache_dir'].'/'.$class.'.php', $this->options['debug']);
-        if (!$cache->isFresh()) {
+        if (!$cache->isFresh($class)) {
             $dumper = new $this->options['matcher_dumper_class']($this->getRouteCollection());
 
             $options = array(
@@ -264,7 +264,7 @@ class Router implements RouterInterface
         } else {
             $class = $this->options['generator_cache_class'];
             $cache = new ConfigCache($this->options['cache_dir'].'/'.$class.'.php', $this->options['debug']);
-            if (!$cache->isFresh()) {
+            if (!$cache->isFresh($class)) {
                 $dumper = new $this->options['generator_dumper_class']($this->getRouteCollection());
 
                 $options = array(

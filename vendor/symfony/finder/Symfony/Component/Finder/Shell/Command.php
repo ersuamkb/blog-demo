@@ -187,7 +187,7 @@ class Command
     public function get($label)
     {
         if (!isset($this->labels[$label])) {
-            throw new \RuntimeException(sprintf('Label "%s" does not exist.', $label));
+            throw new \RuntimeException(sprintf('Label "%s" does not exists.', $label));
         }
 
         return $this->bits[$this->labels[$label]];

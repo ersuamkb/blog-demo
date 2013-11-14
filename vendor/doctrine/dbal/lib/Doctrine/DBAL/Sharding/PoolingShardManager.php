@@ -115,7 +115,7 @@ class PoolingShardManager implements ShardManager
         $oldDistribution = $this->getCurrentDistributionValue();
 
         foreach ($shards as $shard) {
-            $this->conn->connect($shard['id']);
+            $this->selectShard($shard['id']);
             foreach ($this->conn->fetchAll($sql, $params, $types) as $row) {
                 $result[] = $row;
             }

@@ -254,11 +254,11 @@ class <proxyShortClassName> extends \<className> implements \<baseProxyInterface
      * Generates a proxy class file.
      *
      * @param \Doctrine\Common\Persistence\Mapping\ClassMetadata $class    Metadata for the original class.
-     * @param string|bool                                        $fileName Filename (full path) for the generated class. If none is given, eval() is used.
+     * @param string                                             $fileName Filename (full path) for the generated class.
      *
      * @throws UnexpectedValueException
      */
-    public function generateProxyClass(ClassMetadata $class, $fileName = false)
+    public function generateProxyClass(ClassMetadata $class, $fileName = null)
     {
         preg_match_all('(<([a-zA-Z]+)>)', $this->proxyClassTemplate, $placeholderMatches);
 
@@ -277,18 +277,8 @@ class <proxyShortClassName> extends \<className> implements \<baseProxyInterface
             }
         }
 
-        $proxyCode = strtr($this->proxyClassTemplate, $placeholders);
-
-        if ( ! $fileName) {
-            $proxyClassName = $this->generateNamespace($class) . '\\' . $this->generateProxyShortClassName($class);
-
-            if ( ! class_exists($proxyClassName)) {
-                eval(substr($proxyCode, 5));
-            }
-
-            return;
-        }
-
+        $proxyCode       = strtr($this->proxyClassTemplate, $placeholders);
+        $fileName        = $fileName ?: $this->getProxyFileName($class->getName());
         $parentDirectory = dirname($fileName);
 
         if ( ! is_dir($parentDirectory) && (false === @mkdir($parentDirectory, 0775, true))) {
@@ -619,13 +609,7 @@ EOT;
 
         /* @var $prop \ReflectionProperty */
         foreach ($class->getReflectionClass()->getProperties() as $prop) {
-            if ($prop->isStatic()) {
-                continue;
-            }
-
-            $allProperties[] = $prop->isPrivate()
-                ? "\0" . $prop->getDeclaringClass()->getName() . "\0" . $prop->getName()
-                : $prop->getName();
+            $allProperties[] = $prop->getName();
         }
 
         $lazyPublicProperties = array_keys($this->getLazyLoadedPublicProperties($class));

@@ -133,22 +133,6 @@ class SqlitePlatform extends AbstractPlatform
     /**
      * {@inheritDoc}
      */
-    public function getDateAddHourExpression($date, $hours)
-    {
-        return "DATETIME(" . $date . ",'+". $hours . " hour')";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getDateSubHourExpression($date, $hours)
-    {
-        return "DATETIME(" . $date . ",'-". $hours . " hour')";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getDateAddDaysExpression($date, $days)
     {
         return "DATE(" . $date . ",'+". $days . " day')";
@@ -385,7 +369,7 @@ class SqlitePlatform extends AbstractPlatform
     {
         $table = str_replace('.', '__', $table);
 
-        return "PRAGMA table_info('$table')";
+        return "PRAGMA table_info($table)";
     }
 
     /**
@@ -395,7 +379,7 @@ class SqlitePlatform extends AbstractPlatform
     {
         $table = str_replace('.', '__', $table);
 
-        return "PRAGMA index_list('$table')";
+        return "PRAGMA index_list($table)";
     }
 
     /**
@@ -468,7 +452,7 @@ class SqlitePlatform extends AbstractPlatform
     {
         $tableName = str_replace('.', '__', $tableName);
 
-        return 'DELETE FROM ' . $tableName;
+        return 'DELETE FROM '.$tableName;
     }
 
     /**
@@ -701,7 +685,7 @@ class SqlitePlatform extends AbstractPlatform
     {
         $table = str_replace('.', '__', $table);
 
-        return "PRAGMA foreign_key_list('$table')";
+        return "PRAGMA foreign_key_list($table)";
     }
 
     /**

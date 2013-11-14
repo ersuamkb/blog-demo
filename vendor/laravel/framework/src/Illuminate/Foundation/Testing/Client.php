@@ -1,7 +1,6 @@
 <?php namespace Illuminate\Foundation\Testing;
 
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Application;
 use Symfony\Component\HttpKernel\Client as BaseClient;
 use Symfony\Component\BrowserKit\Request as DomRequest;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
@@ -16,25 +15,11 @@ class Client extends BaseClient {
 	 */
 	protected function filterRequest(DomRequest $request)
 	{
-		$httpRequest = Application::onRequest('create', $this->getRequestParameters($request));
+		$httpRequest = Request::create($request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(), $request->getFiles(), $request->getServer(), $request->getContent());
 
 		$httpRequest->files->replace($this->filterFiles($httpRequest->files->all()));
 
 		return $httpRequest;
-	}
-
-	/**
-	 * Get the request parameters from a BrowserKit request.
-	 *
-	 * @param  \Symfony\Component\BrowserKit\Request  $request
-	 * @return array
-	 */
-	protected function getRequestParameters(DomRequest $request)
-	{
-		return array(
-			$request->getUri(), $request->getMethod(), $request->getParameters(), $request->getCookies(),
-			$request->getFiles(), $request->getServer(), $request->getContent()
-		);
 	}
 
 }

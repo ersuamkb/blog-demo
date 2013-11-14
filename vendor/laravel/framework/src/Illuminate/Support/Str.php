@@ -74,9 +74,7 @@ class Str {
 	 */
 	public static function finish($value, $cap)
 	{
-		$quoted = preg_quote($cap, '/');
-
-		return preg_replace('/(?:'.$quoted.')+$/', '', $value).$cap;
+		return rtrim($value, $cap).$cap;
 	}
 
 	/**
@@ -95,7 +93,14 @@ class Str {
 		// Asterisks are translated into zero-or-more regular expression wildcards
 		// to make it convenient to check if the strings starts with the given
 		// pattern such as "library/*", making any string check convenient.
-		$pattern = str_replace('\*', '.*', $pattern).'\z';
+		if ($pattern !== '/')
+		{
+			$pattern = str_replace('\*', '.*', $pattern).'\z';
+		}
+		else
+		{
+			$pattern = '/$';
+		}
 
 		return (bool) preg_match('#^'.$pattern.'#', $value);
 	}
@@ -227,17 +232,6 @@ class Str {
 	public static function upper($value)
 	{
 		return mb_strtoupper($value);
-	}
-
-	/**
-	 * Convert the given string to title case.
-	 *
-	 * @param  string  $value
-	 * @return string
-	 */
-	public static function title($value)
-	{
-		return mb_convert_case($value, MB_CASE_TITLE, 'UTF-8');
 	}
 
 	/**

@@ -172,13 +172,6 @@ class BladeCompiler extends Compiler implements CompilerInterface {
 	 */
 	protected function compileEchos($value)
 	{
-		$difference = strlen($this->contentTags[0]) - strlen($this->escapedTags[0]);
-		
-		if ($difference > 0)
-		{
-			return $this->compileEscapedEchos($this->compileRegularEchos($value));
-		}
-
 		return $this->compileRegularEchos($this->compileEscapedEchos($value));
 	}
 
@@ -190,14 +183,9 @@ class BladeCompiler extends Compiler implements CompilerInterface {
 	 */
 	protected function compileRegularEchos($value)
 	{
-		$pattern = sprintf('/(@)?%s\s*(.+?)\s*%s/s', $this->contentTags[0], $this->contentTags[1]);
+		$pattern = sprintf('/%s\s*(.+?)\s*%s/s', $this->contentTags[0], $this->contentTags[1]);
 
-		$callback = function($matches)
-		{
-			return $matches[1] ? substr($matches[0], 1) : '<?php echo '.$matches[2].'; ?>';
-		};
-
-		return preg_replace_callback($pattern, $callback, $value);
+		return preg_replace($pattern, '<?php echo $1; ?>', $value);
 	}
 
 	/**

@@ -84,7 +84,7 @@ class ArgvInput extends Input
                 $parseOptions = false;
             } elseif ($parseOptions && 0 === strpos($token, '--')) {
                 $this->parseLongOption($token);
-            } elseif ($parseOptions && '-' === $token[0] && '-' !== $token) {
+            } elseif ($parseOptions && '-' === $token[0]) {
                 $this->parseShortOption($token);
             } else {
                 $this->parseArgument($token);
@@ -284,11 +284,9 @@ class ArgvInput extends Input
     {
         $values = (array) $values;
 
-        foreach ($this->tokens as $token) {
-            foreach ($values as $value) {
-                if ($token === $value || 0 === strpos($token, $value.'=')) {
-                    return true;
-                }
+        foreach ($this->tokens as $v) {
+            if (in_array($v, $values)) {
+                return true;
             }
         }
 
@@ -313,7 +311,7 @@ class ArgvInput extends Input
         $tokens = $this->tokens;
         while ($token = array_shift($tokens)) {
             foreach ($values as $value) {
-                if ($token === $value || 0 === strpos($token, $value.'=')) {
+                if (0 === strpos($token, $value)) {
                     if (false !== $pos = strpos($token, '=')) {
                         return substr($token, $pos + 1);
                     }

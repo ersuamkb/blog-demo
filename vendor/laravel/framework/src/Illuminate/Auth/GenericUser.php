@@ -55,7 +55,7 @@ class GenericUser implements UserInterface {
 	 * Dynamically set an attribute on the user.
 	 *
 	 * @param  string  $key
-	 * @param  mixed   $value
+	 * @param  mied    $value
 	 * @return void
 	 */
 	public function __set($key, $value)

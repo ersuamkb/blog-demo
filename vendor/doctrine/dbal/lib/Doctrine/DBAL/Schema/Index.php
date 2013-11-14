@@ -29,7 +29,7 @@ class Index extends AbstractAsset implements Constraint
      *
      * @var Identifier[]
      */
-    protected $_columns = array();
+    protected $_columns;
 
     /**
      * @var boolean

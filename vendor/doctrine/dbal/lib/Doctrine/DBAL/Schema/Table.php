@@ -84,6 +84,7 @@ class Table extends AbstractAsset
         }
 
         $this->_setName($tableName);
+        $this->_idGeneratorType = $idGeneratorType;
 
         foreach ($columns as $column) {
             $this->_addColumn($column);

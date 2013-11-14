@@ -45,6 +45,13 @@ class Guard {
 	protected $request;
 
 	/**
+	 * The cookies queued by the guards.
+	 *
+	 * @var array
+	 */
+	protected $queuedCookies = array();
+
+	/**
 	 * The event dispatcher instance.
 	 *
 	 * @var \Illuminate\Events\Dispatcher
@@ -89,7 +96,7 @@ class Guard {
 	 */
 	public function guest()
 	{
-		return ! $this->check();
+		return is_null($this->user());
 	}
 
 	/**
@@ -194,6 +201,7 @@ class Guard {
 		// request indicating that the given credentials were invalid for login.
 		if ($this->attemptBasic($request, $field)) return;
 
+		
 		return $this->getBasicResponse();
 	}
 
@@ -332,7 +340,7 @@ class Guard {
 		// identifier. We will then decrypt this later to retrieve the users.
 		if ($remember)
 		{
-			$this->queueRecallerCookie($id);
+			$this->queuedCookies[] = $this->createRecaller($id);
 		}
 
 		// If we have an event dispatcher instance set we will fire an event so that
@@ -358,30 +366,6 @@ class Guard {
 		$this->session->put($this->getName(), $id);
 
 		return $this->login($this->provider->retrieveById($id), $remember);
-	}
-
-	/**
-	 * Log the given user ID into the application without sessions or cookies.
-	 *
-	 * @param  mixed  $id
-	 * @return bool
-	 */
-	public function onceUsingId($id)
-	{
-		$this->setUser($this->provider->retrieveById($id));
-
-		return $this->user instanceof UserInterface;
-	}
-
-	/**
-	 * Queue the recaller cookie into the cookie jar.
-	 *
-	 * @param  string  $id
-	 * @return void
-	 */
-	protected function queueRecallerCookie($id)
-	{
-		$this->getCookieJar()->queue($this->createRecaller($id));
 	}
 
 	/**
@@ -433,7 +417,17 @@ class Guard {
 
 		$recaller = $this->getRecallerName();
 
-		$this->getCookieJar()->queue($this->getCookieJar()->forget($recaller));
+		$this->queuedCookies[] = $this->getCookieJar()->forget($recaller);
+	}
+
+	/**
+	 * Get the cookies queued by the guard.
+	 *
+	 * @return array
+	 */
+	public function getQueuedCookies()
+	{
+		return $this->queuedCookies;
 	}
 
 	/**

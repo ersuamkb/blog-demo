@@ -78,10 +78,6 @@ class TimeDataCollector extends DataCollector
      */
     public function getDuration()
     {
-        if (!isset($this->data['events']['__section__'])) {
-            return 0;
-        }
-
         $lastEvent = $this->data['events']['__section__'];
 
         return $lastEvent->getOrigin() + $lastEvent->getDuration() - $this->getStartTime();
@@ -96,10 +92,6 @@ class TimeDataCollector extends DataCollector
      */
     public function getInitTime()
     {
-        if (!isset($this->data['events']['__section__'])) {
-            return 0;
-        }
-
         return $this->data['events']['__section__']->getOrigin() - $this->getStartTime();
     }
 

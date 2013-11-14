@@ -36,8 +36,6 @@ class Seeder {
 	public function call($class)
 	{
 		$this->resolve($class)->run();
-
-		$this->command->getOutput()->writeln("<info>Seeded:</info> $class");
 	}
 
 	/**

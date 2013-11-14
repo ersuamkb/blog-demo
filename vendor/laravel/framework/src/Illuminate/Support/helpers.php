@@ -40,12 +40,11 @@ if ( ! function_exists('app_path'))
 	/**
 	 * Get the path to the application folder.
 	 *
-	 * @param   string  $path
 	 * @return  string
 	 */
-	function app_path($path = '')
+	function app_path()
 	{
-		return app('path').($path ? '/'.$path : $path);
+		return app('path');
 	}
 }
 
@@ -259,7 +258,7 @@ if ( ! function_exists('array_get'))
 	function array_get($array, $key, $default = null)
 	{
 		if (is_null($key)) return $array;
-
+		
 		if (isset($array[$key])) return $array[$key];
 
 		foreach (explode('.', $key) as $segment)
@@ -297,34 +296,16 @@ if ( ! function_exists('array_pluck'))
 	 * Pluck an array of values from an array.
 	 *
 	 * @param  array   $array
-	 * @param  string  $value
 	 * @param  string  $key
 	 * @return array
 	 */
-	function array_pluck($array, $value, $key = null)
+	function array_pluck($array, $key)
 	{
-		$results = array();
-
-		foreach ($array as $item)
+		return array_map(function($value) use ($key)
 		{
-			$itemValue = is_object($item) ? $item->{$value} : $item[$value];
+			return is_object($value) ? $value->$key : $value[$key];
 
-			// If the key is "null", we will just append the value to the array and keep
-			// looping. Otherwise we will key the array using the value of the key we
-			// received from the developer. Then we'll return the final array form.
-			if (is_null($key))
-			{
-				$results[] = $itemValue;
-			}
-			else
-			{
-				$itemKey = is_object($item) ? $item->{$key} : $item[$key];
-
-				$results[$itemKey] = $itemValue;
-			}
-		}
-
-		return $results;
+		}, $array);
 	}
 }
 
@@ -357,7 +338,7 @@ if ( ! function_exists('array_set'))
 	 * @param  array   $array
 	 * @param  string  $key
 	 * @param  mixed   $value
-	 * @return array
+	 * @return void
 	 */
 	function array_set(&$array, $key, $value)
 	{
@@ -381,8 +362,6 @@ if ( ! function_exists('array_set'))
 		}
 
 		$array[array_shift($keys)] = $value;
-
-		return $array;
 	}
 }
 
@@ -423,9 +402,9 @@ if ( ! function_exists('base_path'))
 	 *
 	 * @return string
 	 */
-	function base_path($path = '')
+	function base_path()
 	{
-		return app()->make('path.base').($path ? '/'.$path : $path);
+		return app()->make('path.base');
 	}
 }
 
@@ -633,7 +612,7 @@ if ( ! function_exists('object_get'))
 	function object_get($object, $key, $default = null)
 	{
 		if (is_null($key)) return $object;
-
+		
 		foreach (explode('.', $key) as $segment)
 		{
 			if ( ! is_object($object) or ! isset($object->{$segment}))
@@ -648,26 +627,6 @@ if ( ! function_exists('object_get'))
 	}
 }
 
-if ( ! function_exists('preg_replace_sub'))
-{
-	/**
-	 * Replace a given pattern with each value in the array in sequentially.
-	 *
-	 * @param  string  $pattern
-	 * @param  array   $replacements
-	 * @param  string  $subject
-	 * @return string
-	 */
-	function preg_replace_sub($pattern, &$replacements, $subject)
-	{
-		return preg_replace_callback($pattern, function($match) use (&$replacements)
-		{
-			return array_shift($replacements);
-
-		}, $subject);
-	}
-}
-
 if ( ! function_exists('public_path'))
 {
 	/**
@@ -675,9 +634,9 @@ if ( ! function_exists('public_path'))
 	 *
 	 * @return string
 	 */
-	function public_path($path = '')
+	function public_path()
 	{
-		return app()->make('path.public').($path ? '/'.$path : $path);
+		return app()->make('path.public');
 	}
 }
 
@@ -763,9 +722,9 @@ if ( ! function_exists('storage_path'))
 	 *
 	 * @return  string
 	 */
-	function storage_path($path = '')
+	function storage_path()
 	{
-		return app('path.storage').($path ? '/'.$path : $path);
+		return app('path.storage');
 	}
 }
 

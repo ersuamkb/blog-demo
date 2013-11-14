@@ -113,10 +113,7 @@ class FormatterStyleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($style, $formatter->getStyle('test'));
         $this->assertNotEquals($style, $formatter->getStyle('info'));
 
-        $style = new OutputFormatterStyle('blue', 'white');
-        $formatter->setStyle('b', $style);
-
-        $this->assertEquals("\033[34;47msome \033[0m\033[34;47mcustom\033[0m\033[34;47m msg\033[0m", $formatter->format('<test>some <b>custom</b> msg</test>'));
+        $this->assertEquals("\033[34;47msome custom msg\033[0m", $formatter->format('<test>some custom msg</test>'));
     }
 
     public function testRedefineStyle()
@@ -140,7 +137,7 @@ class FormatterStyleTest extends \PHPUnit_Framework_TestCase
     public function testNonStyleTag()
     {
         $formatter = new OutputFormatter(true);
-        $this->assertEquals("\033[32msome \033[0m\033[32m<tag> styled \033[0m\033[32m<p>single-char tag\033[0m\033[32m</p>\033[0m", $formatter->format('<info>some <tag> styled <p>single-char tag</p></info>'));
+        $this->assertEquals("\033[32msome \033[0m\033[32m<tag> styled\033[0m", $formatter->format('<info>some <tag> styled</info>'));
     }
 
     public function testNotDecoratedFormatter()
